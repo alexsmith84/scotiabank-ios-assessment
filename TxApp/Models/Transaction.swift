@@ -11,18 +11,23 @@ struct TransactionResponse: Decodable {
     let transactions: [Transaction]
 }
 
-struct Amount: Decodable {
-    let value: Double
-    let currency: String
-}
-
-struct Transaction: Decodable {
+struct Transaction: Decodable, Equatable {
     let key: String
-    let transactionType: String
+    let transactionType: TransactionType
     let merchantName: String
     let description: String?
     let amount: Amount
     let postedDate: String
     let fromAccount: String
     let fromCardNumber: String
+}
+
+enum TransactionType: String, Decodable, Equatable {
+    case debit = "DEBIT"
+    case credit = "CREDIT"
+}
+
+struct Amount: Decodable, Equatable {
+    let value: Decimal
+    let currency: String
 }

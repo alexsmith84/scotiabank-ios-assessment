@@ -6,9 +6,9 @@
 //
 
 import ComposableArchitecture
+import Foundation
 
-@Reducer
-struct TransactionListFeature {
+struct TransactionListFeature: Reducer {
 
     @ObservableState
     struct State: Equatable {
@@ -17,21 +17,46 @@ struct TransactionListFeature {
         var errorMessage: String? = nil
     }
 
+    @CasePathable
     enum Action {
         case onAppear
-        case transactionsLoaded(Result<[Transaction], Error>)
+        case transactionsLoaded([Transaction])
+        case transactionsFailedToLoad(String)
         case transactionTapped(Transaction)
     }
 
-    var body: some ReducerOf<Self> {
-        Reduce { state, action in
+    @Dependency(\.transactionClient) var transactionClient
 
+    // Using reduce(into:action:) directly instead of body + Reduce { }
+    // to work around a Swift 6.2 compiler bug (Xcode 26) that causes
+    // infinite recursion in the Reducer protocol's default _reduce dispatch.
+    func reduce(into state: inout State, action: Action) -> Effect<Action> {
+        switch action {
+        case .onAppear:
+            state.isLoading = true
+            state.errorMessage = nil
+            return .run { send in
+                do {
+                    let transactions = try await transactionClient.fetchTransactions()
+                    await send(.transactionsLoaded(transactions))
+                } catch {
+                    await send(.transactionsFailedToLoad(error.localizedDescription))
+                }
+            }
+
+        case .transactionsLoaded(let transactions):
+            state.isLoading = false
+            state.transactions = transactions
+            return .none
+
+        case .transactionsFailedToLoad(let message):
+            state.isLoading = false
+            state.errorMessage = message
+            return .none
+
+        case .transactionTapped:
+            return .none
         }
     }
 }
 
-extension Transaction: Equatable {
-    static func == (lhs: Transaction, rhs: Transaction) -> Bool {
-        lhs.key == rhs.key
-    }
-}
