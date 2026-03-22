@@ -68,7 +68,11 @@ struct TransactionRowView: View {
         store: Store(initialState: TransactionListFeature.State(), reducer: {
             TransactionListFeature()
         }, withDependencies: {
-            $0.transactionClient = .liveValue
+            $0.transactionClient.fetchTransactions = {
+                // Simulate a network call
+                try await Task.sleep(for: .seconds(2))
+                return try await TransactionClient.liveValue.fetchTransactions()
+            }
         })
     )
 }
