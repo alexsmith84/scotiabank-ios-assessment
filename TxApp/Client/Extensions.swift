@@ -18,7 +18,7 @@ extension TransactionClient: DependencyKey {
                     key: "abc123",
                     transactionType: .debit,
                     merchantName: "Test Merchant",
-                    description: nil,
+                    description: "Bill Payment",
                     amount: Amount(value: Decimal(42.00), currency: "CAD"),
                     postedDate: "2026-07-01",
                     fromAccount: "Momentum Regular Visa",

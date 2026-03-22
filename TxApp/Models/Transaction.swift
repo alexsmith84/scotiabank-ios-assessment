@@ -11,7 +11,7 @@ struct TransactionResponse: Decodable {
     let transactions: [Transaction]
 }
 
-struct Transaction: Decodable, Equatable {
+struct Transaction: Decodable, Equatable, Identifiable {
     let key: String
     let transactionType: TransactionType
     let merchantName: String
@@ -20,6 +20,8 @@ struct Transaction: Decodable, Equatable {
     let postedDate: String
     let fromAccount: String
     let fromCardNumber: String
+
+    var id: String { key }
 }
 
 enum TransactionType: String, Decodable, Equatable {
