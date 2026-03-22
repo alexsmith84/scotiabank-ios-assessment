@@ -15,7 +15,8 @@ struct TransactionListView: View {
         NavigationStack {
             Group {
                 if store.isLoading {
-                    ProgressView()
+                    ProgressView("Loading Transactions...")
+                        .font(.caption)
                 } else if let errorMessage = store.errorMessage {
                     Text(errorMessage)
                         .foregroundStyle(.red)
