@@ -15,6 +15,7 @@ struct TransactionListFeature: Reducer {
         var transactions: [Transaction] = []
         var isLoading: Bool = false
         var errorMessage: String? = nil
+        @Presents var detail: TransactionDetailFeature.State?
     }
 
     @CasePathable
@@ -22,6 +23,7 @@ struct TransactionListFeature: Reducer {
         case onAppear
         case transactionsLoaded([Transaction])
         case transactionsFailedToLoad(String)
+        case detail(PresentationAction<TransactionDetailFeature.Action>)
         case transactionTapped(Transaction)
     }
 
@@ -54,7 +56,23 @@ struct TransactionListFeature: Reducer {
             state.errorMessage = message
             return .none
 
-        case .transactionTapped:
+        case .transactionTapped(let transaction):
+            state.detail = TransactionDetailFeature.State(transaction: transaction)
+            return .none
+
+        case .detail(.presented(.closeTapped)):
+            state.detail = nil
+            return .none
+
+        case .detail(.presented(let detailAction)):
+            guard var detailState = state.detail else { return .none }
+            let effect = TransactionDetailFeature()
+                .reduce(into: &detailState, action: detailAction)
+                .map { Action.detail(.presented($0)) }
+            state.detail = detailState
+            return effect
+
+        case .detail:
             return .none
         }
     }

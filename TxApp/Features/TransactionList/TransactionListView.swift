@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct TransactionListView: View {
-    let store: StoreOf<TransactionListFeature>
+    @Bindable var store: StoreOf<TransactionListFeature>
 
     var body: some View {
         NavigationStack {
@@ -24,15 +24,22 @@ struct TransactionListView: View {
                         .padding()
                 } else {
                     List(store.transactions) { transaction in
-                        TransactionRowView(transaction: transaction)
-                            .onTapGesture {
-                                store.send(.transactionTapped(transaction))
-                            }
+                        Button {
+                            store.send(.transactionTapped(transaction))
+                        } label: {
+                            TransactionRowView(transaction: transaction)
+                        }
+                        .buttonStyle(.plain)
                     }
                     .listStyle(.plain)
                 }
             }
             .navigationTitle("Transactions")
+            .navigationDestination(
+                item: $store.scope(state: \.detail, action: \.detail)
+            ) { detailStore in
+                TransactionDetailView(store: detailStore)
+            }
         }
         .onAppear {
             store.send(.onAppear)
