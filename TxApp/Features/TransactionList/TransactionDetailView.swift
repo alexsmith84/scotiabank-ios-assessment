@@ -20,7 +20,7 @@ struct TransactionDetailView: View {
                 VStack(spacing: 24) {
                     Image("success-icon")
                         .font(.system(size: 64))
-                        .foregroundStyle(store.transaction.transactionType == .credit ? .green : .red)
+                        .foregroundStyle(store.transaction.statusIconColor)
 
                     Text(store.transaction.transactionType == .credit ? "Credit transaction" : "Debit transaction")
                         .font(.title3)

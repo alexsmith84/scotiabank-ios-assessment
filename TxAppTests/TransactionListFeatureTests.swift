@@ -7,6 +7,7 @@
 
 import ComposableArchitecture
 import Foundation
+import SwiftUI
 import Testing
 @testable import TxApp
 
@@ -120,5 +121,15 @@ struct TransactionListFeatureTests {
         await store.send(.detail(.presented(.tooltipToggled(false)))) {
             $0.detail?.isTooltipExpanded = false
         }
+    }
+
+    @Test func statusIconColorIsGreenForCredit() {
+        let transaction = Transaction.mock(transactionType: .credit)
+        #expect(transaction.statusIconColor == Color.green)
+    }
+
+    @Test func statusIconColorIsRedForDebit() {
+        let transaction = Transaction.mock(transactionType: .debit)
+        #expect(transaction.statusIconColor == Color.red)
     }
 }
