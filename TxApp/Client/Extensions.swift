@@ -13,18 +13,7 @@ extension TransactionClient: DependencyKey {
 
     static var testValue: Self {
         Self {
-            [
-                Transaction(
-                    key: "abc123",
-                    transactionType: .debit,
-                    merchantName: "Test Merchant",
-                    description: "Bill Payment",
-                    amount: Amount(value: Decimal(42.00), currency: "CAD"),
-                    postedDate: "2026-07-01",
-                    fromAccount: "Momentum Regular Visa",
-                    fromCardNumber: "4537350001688012"
-                )
-            ]
+            [.mock()]
         }
     }
 }

@@ -12,25 +12,14 @@ import Testing
 
 struct TransactionListFeatureTests {
     @MainActor @Test func onAppearLoadsTransactions() async throws {
+        let mockTransaction = Transaction.mock()
+
         let store = TestStore(
             initialState: TransactionListFeature.State()
         ) {
             TransactionListFeature()
         } withDependencies: {
-            $0.transactionClient.fetchTransactions = {
-                [
-                    Transaction(
-                        key: "abc123",
-                        transactionType: .debit,
-                        merchantName: "Test Merchant",
-                        description: nil,
-                        amount: Amount(value: Decimal(42.00), currency: "CAD"),
-                        postedDate: "2026-07-01",
-                        fromAccount: "Momentum Regular Visa",
-                        fromCardNumber: "4537350001688012"
-                    )
-                ]
-            }
+            $0.transactionClient.fetchTransactions = { [mockTransaction] }
         }
 
         await store.send(.onAppear) {
@@ -39,18 +28,7 @@ struct TransactionListFeatureTests {
 
         await store.receive(\.transactionsLoaded) {
             $0.isLoading = false
-            $0.transactions = [
-                Transaction(
-                    key: "abc123",
-                    transactionType: .debit,
-                    merchantName: "Test Merchant",
-                    description: nil,
-                    amount: Amount(value: Decimal(42.00), currency: "CAD"),
-                    postedDate: "2026-07-01",
-                    fromAccount: "Momentum Regular Visa",
-                    fromCardNumber: "4537350001688012"
-                )
-            ]
+            $0.transactions = [mockTransaction]
         }
     }
 }

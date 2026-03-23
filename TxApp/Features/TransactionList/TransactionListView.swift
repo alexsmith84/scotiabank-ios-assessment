@@ -85,17 +85,6 @@ struct TransactionRowView: View {
 }
 
 #Preview("Transaction Row") {
-    TransactionRowView(
-        transaction: Transaction(
-            key: "abc123",
-            transactionType: .debit,
-            merchantName: "Test Merchant",
-            description: "Bill payment",
-            amount: Amount(value: Decimal(42.00), currency: "CAD"),
-            postedDate: "2021-05-31",
-            fromAccount: "Momentum Regular Visa",
-            fromCardNumber: "4537350001688012"
-        )
-    )
-    .padding()
+    TransactionRowView(transaction: .mock())
+        .padding()
 }

@@ -33,3 +33,29 @@ struct Amount: Decodable, Equatable {
     let value: Decimal
     let currency: String
 }
+#if DEBUG
+extension Transaction {
+    static func mock(
+        key: String = "abc123",
+        transactionType: TransactionType = .debit,
+        merchantName: String = "Test Merchant",
+        description: String? = "Bill payment",
+        amount: Amount = Amount(value: Decimal(42.00), currency: "CAD"),
+        postedDate: String = "2021-05-31",
+        fromAccount: String = "Momentum Regular Visa",
+        fromCardNumber: String = "4537350001688012"
+    ) -> Transaction {
+        Transaction(
+            key: key,
+            transactionType: transactionType,
+            merchantName: merchantName,
+            description: description,
+            amount: amount,
+            postedDate: postedDate,
+            fromAccount: fromAccount,
+            fromCardNumber: fromCardNumber
+        )
+    }
+}
+#endif
+

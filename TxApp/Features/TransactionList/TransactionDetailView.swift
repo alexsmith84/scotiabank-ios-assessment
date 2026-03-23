@@ -169,18 +169,7 @@ struct TooltipView: View {
     NavigationStack {
         TransactionDetailView(
             store: Store(
-                initialState: TransactionDetailFeature.State(
-                    transaction: Transaction(
-                        key: "abc123",
-                        transactionType: .debit,
-                        merchantName: "Test Merchant",
-                        description: "Bill payment",
-                        amount: Amount(value: 42.00, currency: "CAD"),
-                        postedDate: "2021-05-31",
-                        fromAccount: "Momentum Regular Visa",
-                        fromCardNumber: "4537350001688012"
-                    )
-                )
+                initialState: TransactionDetailFeature.State(transaction: .mock())
             ) {
                 TransactionDetailFeature()
             }
@@ -193,15 +182,13 @@ struct TooltipView: View {
         TransactionDetailView(
             store: Store(
                 initialState: TransactionDetailFeature.State(
-                    transaction: Transaction(
+                    transaction: .mock(
                         key: "xyz456",
                         transactionType: .credit,
                         merchantName: "Refund - Apple Store",
                         description: nil,
                         amount: Amount(value: 199.99, currency: "CAD"),
-                        postedDate: "2021-06-15",
-                        fromAccount: "Momentum Regular Visa",
-                        fromCardNumber: "4537350001688012"
+                        postedDate: "2021-06-15"
                     )
                 )
             ) {
@@ -216,16 +203,7 @@ struct TooltipView: View {
         TransactionDetailView(
             store: Store(
                 initialState: TransactionDetailFeature.State(
-                    transaction: Transaction(
-                        key: "abc123",
-                        transactionType: .debit,
-                        merchantName: "Test Merchant",
-                        description: "Bill payment",
-                        amount: Amount(value: 42.00, currency: "CAD"),
-                        postedDate: "2021-05-31",
-                        fromAccount: "Momentum Regular Visa",
-                        fromCardNumber: "4537350001688012"
-                    ),
+                    transaction: .mock(),
                     isTooltipExpanded: true
                 )
             ) {
