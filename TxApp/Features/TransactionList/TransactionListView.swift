@@ -24,12 +24,10 @@ struct TransactionListView: View {
                         .padding()
                 } else {
                     List(store.transactions) { transaction in
-                        Button {
-                            store.send(.transactionTapped(transaction))
-                        } label: {
-                            TransactionRowView(transaction: transaction)
-                        }
-                        .buttonStyle(.plain)
+                        TransactionRowView(transaction: transaction)
+                            .onTapGesture {
+                                store.send(.transactionTapped(transaction))
+                            }
                     }
                     .listStyle(.plain)
                 }
@@ -67,6 +65,7 @@ struct TransactionRowView: View {
                 .font(.body)
                 .foregroundStyle(.primary)
         }
+        .contentShape(Rectangle())
         .padding(.vertical, 8)
     }
 }
