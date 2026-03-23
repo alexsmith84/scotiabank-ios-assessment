@@ -17,7 +17,7 @@ An iOS app that displays a list of credit card transactions and a transaction de
 
 ## Screenshots
 
-<img src="Screenshots/transaction-detail.png" width="300" alt="Transaction Detail">
+<img src="Screenshots/transaction-detail-collapsed.png" width="300" alt="Transaction Detail"> <img src="Screenshots/transaction-detail-expanded.png" width="300" alt="Transaction Detail - Tooltip Expanded">
 
 ## Architecture
 
