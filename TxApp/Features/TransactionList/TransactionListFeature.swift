@@ -35,6 +35,7 @@ struct TransactionListFeature: Reducer {
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
         switch action {
         case .onAppear:
+            guard state.transactions.isEmpty, !state.isLoading else { return .none }
             state.isLoading = true
             state.errorMessage = nil
             return .run { send in
