@@ -15,6 +15,10 @@ An iOS app that displays a list of credit card transactions and a transaction de
 - **Tooltip** — expands/collapses inline with a "Show more / Show less" toggle
 - **Close button** — dismisses the detail screen and returns to the list
 
+## Screenshots
+
+<img src="Screenshots/transaction-detail.png" width="300" alt="Transaction Detail">
+
 ## Architecture
 
 The app uses [The Composable Architecture (TCA)](https://github.com/pointfreeco/swift-composable-architecture) by Point-Free.
