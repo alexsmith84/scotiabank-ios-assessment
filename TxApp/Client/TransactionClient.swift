@@ -17,7 +17,7 @@ extension TransactionClient {
             guard let url = Bundle.main.url(forResource: "transaction-list", withExtension: "json") else {
                 throw URLError(.fileDoesNotExist)
             }
-            let data = try Data(contentsOf: url)
+            let (data, _) = try await URLSession.shared.data(from: url)
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             decoder.dateDecodingStrategy = .formatted(.yyyyMMdd)
