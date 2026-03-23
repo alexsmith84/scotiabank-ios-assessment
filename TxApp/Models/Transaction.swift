@@ -17,7 +17,7 @@ struct Transaction: Decodable, Equatable, Identifiable {
     let merchantName: String
     let description: String?
     let amount: Amount
-    let postedDate: String
+    let postedDate: Date
     let fromAccount: String
     let fromCardNumber: String
 
@@ -33,6 +33,16 @@ struct Amount: Decodable, Equatable {
     let value: Decimal
     let currency: String
 }
+
+extension DateFormatter {
+    static let yyyyMMdd: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter
+    }()
+}
+
 #if DEBUG
 extension Transaction {
     static func mock(
@@ -41,7 +51,7 @@ extension Transaction {
         merchantName: String = "Test Merchant",
         description: String? = "Bill payment",
         amount: Amount = Amount(value: Decimal(42.00), currency: "CAD"),
-        postedDate: String = "2021-05-31",
+        postedDate: Date = DateFormatter.yyyyMMdd.date(from: "2021-05-31")!,
         fromAccount: String = "Momentum Regular Visa",
         fromCardNumber: String = "4537350001688012"
     ) -> Transaction {

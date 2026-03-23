@@ -188,7 +188,7 @@ struct TooltipView: View {
                         merchantName: "Refund - Apple Store",
                         description: nil,
                         amount: Amount(value: 199.99, currency: "CAD"),
-                        postedDate: "2021-06-15"
+                        postedDate: DateFormatter.yyyyMMdd.date(from: "2021-06-15")!
                     )
                 )
             ) {

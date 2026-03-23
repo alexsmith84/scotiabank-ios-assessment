@@ -20,6 +20,7 @@ extension TransactionClient {
             let data = try Data(contentsOf: url)
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
+            decoder.dateDecodingStrategy = .formatted(.yyyyMMdd)
             let decoded = try decoder.decode(TransactionResponse.self, from: data)
             return decoded.transactions
         }
