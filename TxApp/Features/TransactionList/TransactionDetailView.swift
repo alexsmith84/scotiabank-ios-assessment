@@ -145,9 +145,8 @@ struct TooltipView: View {
                     }
                 }
                 .tint(.blue)
-                .foregroundColor(Color.black.opacity(0.75))
                 .font(.footnote)
-                .foregroundStyle(.secondary)
+                .foregroundColor(Color.black.opacity(0.75))
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
