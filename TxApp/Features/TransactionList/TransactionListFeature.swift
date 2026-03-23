@@ -14,7 +14,7 @@ struct TransactionListFeature: Reducer {
     struct State: Equatable {
         var transactions: [Transaction] = []
         var isLoading: Bool = false
-        var errorMessage: String? = nil
+        var errorMessage: String?
         @Presents var detail: TransactionDetailFeature.State?
     }
 
