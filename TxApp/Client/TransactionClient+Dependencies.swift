@@ -1,5 +1,5 @@
 //
-//  Extensions.swift
+//  TransactionClient+Dependencies.swift
 //  TxApp
 //
 //  Created by Alex Smith on 2026-03-21.
