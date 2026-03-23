@@ -102,7 +102,7 @@ struct TransactionDetailView: View {
 struct DetailRowView: View {
     let label: String
     let value: String
-    var suffix: String? = nil
+    var suffix: String?
 
     var body: some View {
         VStack(alignment: .leading) {
