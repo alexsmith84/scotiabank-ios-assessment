@@ -144,7 +144,7 @@ struct TooltipView: View {
                         Text("\(baseMessage) **[Show more](action://toggle)**")
                     }
                 }
-                .tint(.blue)
+                .tint(Color(red: 50/255, green: 126/255, blue: 168/255))
                 .font(.footnote)
                 .foregroundColor(Color.black.opacity(0.75))
             }
