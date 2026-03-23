@@ -61,7 +61,7 @@ struct TransactionRowView: View {
                 }
             }
             Spacer()
-            Text("$\(transaction.amount.value, format: .number.precision(.fractionLength(2)))")
+            Text(transaction.amount.formatted)
                 .font(.body)
                 .foregroundStyle(.primary)
         }

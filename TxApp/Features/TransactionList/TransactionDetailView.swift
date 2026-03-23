@@ -39,7 +39,7 @@ struct TransactionDetailView: View {
                     Divider()
                     DetailRowView(
                         label: "Amount",
-                        value: "$\(store.transaction.amount.value.formatted(.number.precision(.fractionLength(2))))"
+                        value: store.transaction.amount.formatted
                     )
                 }
                 .padding(.horizontal, 20)
